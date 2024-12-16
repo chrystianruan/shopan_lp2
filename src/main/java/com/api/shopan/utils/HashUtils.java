@@ -12,6 +12,7 @@ public class HashUtils {
     }
 
     public static Integer decodeBase64ToInt(String input) {
-        return Integer.parseInt(new String(Base64.getDecoder().decode(input)));
+        String str = new String(Base64.getDecoder().decode(input));
+        return Integer.parseInt(str);
     }
 }

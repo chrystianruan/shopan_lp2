@@ -33,8 +33,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/products/{id}").authenticated()
 
                         .requestMatchers(HttpMethod.GET, "/categories").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/categories/store").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/categories/update/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/categories/store").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/categories/update/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/categories/{id}").authenticated()
 
                         .anyRequest().authenticated()

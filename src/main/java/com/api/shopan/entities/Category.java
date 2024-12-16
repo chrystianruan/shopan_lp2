@@ -1,6 +1,7 @@
 package com.api.shopan.entities;
 
 import com.api.shopan.dtos.CategoryDTO;
+import com.api.shopan.utils.HashUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,6 @@ public class Category {
     private List<Product> products;
 
     public CategoryDTO parseToDTO() {
-        return new CategoryDTO(this.getName());
+        return new CategoryDTO(HashUtils.encodeBase64(this.getId().toString()), this.getName());
     }
 }

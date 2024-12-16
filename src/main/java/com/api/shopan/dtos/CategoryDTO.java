@@ -11,5 +11,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDTO {
+    private String hashId;
     private String name;
 }

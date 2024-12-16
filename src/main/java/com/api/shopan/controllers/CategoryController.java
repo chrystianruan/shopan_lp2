@@ -7,6 +7,7 @@ import com.api.shopan.exceptions.ListEmptyException;
 import com.api.shopan.services.CategoryService;
 import com.api.shopan.utils.ResponseUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.Map;
 @RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoryController {
+    @Autowired
     private CategoryService categoryService;
 
 
