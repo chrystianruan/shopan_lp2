@@ -14,12 +14,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
-
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Double total_value;
+    @Column(name = "total_value")
+    private Double totalValue;
     private Integer status;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,9 +28,9 @@ public class Order {
     public OrderDTO parseToDTO() {
         return new OrderDTO(
             HashUtils.encodeBase64(this.getId().toString()),
-            this.getTotal_value(),
+            this.getTotalValue(),
             this.getStatus(),
-            this.getUser()
+            this.getUser().parseToDTO()
         );
     }
 }
