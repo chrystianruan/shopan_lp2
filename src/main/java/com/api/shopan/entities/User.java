@@ -38,9 +38,9 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role.getId() == RoleEnum.ADMIN.getValue()) {
-            return List.of(new SimpleGrantedAuthority(role.getName()), new SimpleGrantedAuthority("GENERAL"));
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         } else {
-            return List.of(new SimpleGrantedAuthority(role.getName()));
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }
     }
 

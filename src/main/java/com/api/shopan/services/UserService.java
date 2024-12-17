@@ -35,7 +35,7 @@ public class UserService {
             user.setCreatedAt(new Date());
             user.setUpdatedAt(new Date());
             user.setActive(true);
-            user.setRole(roleRepository.findOne(RoleEnum.ADMIN.getValue()));
+            user.setRole(roleRepository.findOne(RoleEnum.GENERAL.getValue()));
 
             userRepository.save(user);
 
