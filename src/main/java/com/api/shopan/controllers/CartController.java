@@ -56,4 +56,16 @@ public class CartController {
         }
     }
 
+    @PutMapping("/change-quantity-product")
+    public ResponseEntity<Map<String, String>> changeQuantityProduct(@RequestBody ProductItemCartInDTO productItemCartInDTO) {
+        try {
+            cartService.changeQuantityItemCart(productItemCartInDTO.getProductDTO(), productItemCartInDTO.getQuantity());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(ResponseUtils.makeMessage("Product updated successfully."));
+        } catch (EmptyException emptyException) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseUtils.makeMessage(emptyException.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(ResponseUtils.makeMessage(e.getMessage()));
+        }
+    }
+
 }

@@ -134,7 +134,7 @@ public class CartService {
         }
     }
 
-    private void removeItem(List<CartItem> list, Product productDelete) throws Exception {
+    private void removeItem(List<CartItem> list, Product productDelete) {
         list.forEach(item -> {
             if (item.getProduct().getId().equals(productDelete.getId())) {
                 cartItemRepository.delete(item);
@@ -151,11 +151,19 @@ public class CartService {
             if (cart == null) {
                 throw new EmptyException("Carrinho");
             }
-            items.forEach(item -> {
-                if (item.getProduct().equals(productDTO.parseToObject())) {
+            boolean existItem = false;
+            for(CartItem item : items) {
+                if (item.getProduct().getId().equals(productDTO.parseToObject().getId())) {
                     item.setQuantity(newQuantity);
+                    item.setSubtotal(item.getQuantity() * item.getProduct().getUnitPrice());
+                    existItem = true;
+                    break;
                 }
-            });
+            }
+            if (!existItem) {
+                throw new EmptyException("Item do carrinho");
+            }
+            this.updateCartTotalPrice(cart);
         } catch (EmptyException e) {
             throw e;
         } catch (Exception e){
