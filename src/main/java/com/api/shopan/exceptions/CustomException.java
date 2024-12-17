@@ -13,4 +13,8 @@ public class CustomException extends Exception {
         this.message = message;
         this.status = status;
     }
+
+    public CustomException() {
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.api.shopan.entities;
 
+import com.api.shopan.dtos.ProductDTO;
+import com.api.shopan.utils.HashUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,9 +23,24 @@ public class Product {
     private Integer id;
     private String name;
     private String description;
-    private Double unit_price;
+    @Column(name = "unit_price")
+    private Double unitPrice;
+    @Column(name = "link_img")
+    private String linkImg;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public ProductDTO parseToDTO() {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setHashId(HashUtils.encodeBase64(this.id.toString()));
+        productDTO.setName(this.name);
+        productDTO.setDescription(this.description);
+        productDTO.setUnitPrice(this.unitPrice);
+        productDTO.setLinkImg(this.linkImg);
+        productDTO.setCategory(this.category.parseToDTO());
+
+        return productDTO;
+    }
 
 }

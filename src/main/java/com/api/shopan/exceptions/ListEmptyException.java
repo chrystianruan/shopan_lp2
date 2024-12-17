@@ -9,4 +9,7 @@ public class ListEmptyException extends CustomException {
     public ListEmptyException(String model) {
         super("Nenhum(a) "+ model +" foi encontrado(a)", status);
     }
+    public ListEmptyException() {
+
+    }
 }

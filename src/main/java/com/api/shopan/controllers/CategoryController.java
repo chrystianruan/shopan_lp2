@@ -41,7 +41,7 @@ public class CategoryController {
         try {
             categoryService.save(categoryDTO);
 
-            return ResponseEntity.status(HttpStatus.CREATED).build() ;
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (AlreadyExistsException alreadyExistsException) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseUtils.makeMessage(alreadyExistsException.getMessage()));
         } catch (Exception e) {

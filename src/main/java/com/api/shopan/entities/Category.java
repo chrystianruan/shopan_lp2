@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "categories")
 public class Category {
-
     /*
     * Categoria não terá metodo delete, pois geralmente para update e delete se usa cascade. Categoria será usado em produto e produto será usado lá na frente nos pedidos.
     * Como pedidos não pode ser apagado, então categorias também não.
@@ -27,6 +26,11 @@ public class Category {
     private String name;
     @OneToMany(mappedBy = "category")
     private List<Product> products;
+
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public CategoryDTO parseToDTO() {
         return new CategoryDTO(HashUtils.encodeBase64(this.getId().toString()), this.getName());

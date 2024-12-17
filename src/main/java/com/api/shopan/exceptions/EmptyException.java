@@ -7,4 +7,7 @@ public class EmptyException extends CustomException {
     public EmptyException(String model) {
         super(model+" não encontrado", status);
     }
+    public EmptyException() {
+
+    }
 }
