@@ -23,57 +23,43 @@ public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
 
+//
+//    @GetMapping()
+//    public ResponseEntity<Map<String, ?>> getAll() {
+//        try {
+//            List<PurchaseDTO> list = purchaseService.getAll();
+//
+//            return ResponseEntity.ok(ResponseUtils.makeMessageWithList(list));
+//        } catch (ListEmptyException emptyException) {
+//            return ResponseEntity.notFound().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseUtils.makeMessage("Erro interno ao buscar compra"));
+//        }
+//    }
 
-    @GetMapping()
-    public ResponseEntity<Map<String, ?>> getAll() {
-        try {
-            List<PurchaseDTO> list = purchaseService.getAll();
+//    @PostMapping("/store")
+//    public ResponseEntity<Map<String, String>> create(@RequestBody PurchaseDTO purchaseDTO) {
+//        try {
+//            purchaseService.save(purchaseDTO);
+//
+//            return ResponseEntity.status(HttpStatus.CREATED).build() ;
+//        } catch (AlreadyExistsException alreadyExistsException) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseUtils.makeMessage(alreadyExistsException.getMessage()));
+//        } catch (Exception e) {
+//            return ResponseEntity.internalServerError().body(ResponseUtils.makeMessage("Erro interno ao realizar criação de compra"));
+//        }
+//    }
 
-            return ResponseEntity.ok(ResponseUtils.makeMessageWithList(list));
-        } catch (ListEmptyException emptyException) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseUtils.makeMessage("Erro interno ao buscar compra"));
-        }
-    }
-
-    @PostMapping("/orders")
-    public ResponseEntity<Map<String, String>> create(@RequestBody PurchaseDTO purchaseDTO) {
-        try {
-            purchaseService.save(purchaseDTO);
-
-            return ResponseEntity.status(HttpStatus.CREATED).build() ;
-        } catch (AlreadyExistsException alreadyExistsException) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseUtils.makeMessage(alreadyExistsException.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(ResponseUtils.makeMessage("Erro interno ao realizar criação de compra"));
-        }
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Map<String, String>> update(@PathVariable String id, @RequestBody PurchaseDTO subjectDTO) {
-        try {
-            purchaseService.update(id, subjectDTO);
-            return ResponseEntity.ok().build();
-        } catch (EmptyException e) {
-            return ResponseEntity.notFound().build();
-        } catch (AlreadyExistsException alreadyExistsException) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseUtils.makeMessage(alreadyExistsException.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseUtils.makeMessage("Erro interno ao realizar update da compra"));
-        }
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Map<String, ?>> get(@PathVariable String id) {
-        try {
-            PurchaseDTO subjectDTO = purchaseService.show(id);
-
-            return ResponseEntity.ok(ResponseUtils.makeMessageWithObject(subjectDTO));
-        } catch (EmptyException emptyException) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseUtils.makeMessage("Compra não encontrada"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseUtils.makeMessage("Erro interno ao buscar compra"));
-        }
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Map<String, ?>> get(@PathVariable String id) {
+//        try {
+//            PurchaseDTO subjectDTO = purchaseService.show(id);
+//
+//            return ResponseEntity.ok(ResponseUtils.makeMessageWithObject(subjectDTO));
+//        } catch (EmptyException emptyException) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseUtils.makeMessage("Compra não encontrada"));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseUtils.makeMessage("Erro interno ao buscar compra"));
+//        }
+//    }
 }

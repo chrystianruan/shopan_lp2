@@ -2,6 +2,7 @@ package com.api.shopan.entities;
 
 import com.api.shopan.dtos.PurchaseDTO;
 import com.api.shopan.utils.HashUtils;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,8 @@ public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String payment_method;
+    @Column(name = "payment_method")
+    private String PaymentMethod;
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -26,7 +28,7 @@ public class Purchase {
     public PurchaseDTO parseToDTO() {
         return new PurchaseDTO(
             HashUtils.encodeBase64(this.getId().toString()),
-            this.getPayment_method(),
+            this.getPaymentMethod(),
             this.getOrder()
         );
     }
