@@ -29,7 +29,7 @@ public class Purchase {
         return new PurchaseDTO(
             HashUtils.encodeBase64(this.getId().toString()),
             this.getPaymentMethod(),
-            this.getOrder()
+            this.getOrder().parseToDTO()
         );
     }
 }
