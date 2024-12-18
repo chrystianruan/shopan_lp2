@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -52,6 +53,7 @@ public class OrderService {
 
             order.setStatus(randomStatus);
             order.setUser(authUser);
+            order.setTotalValue(cartDTO.getTotalValue());
 
             orderRepository.save(order);
             int randomPayment = random.nextInt(3)+1;
@@ -85,7 +87,7 @@ public class OrderService {
     }
 
     private void clearCart(CartDTO cartDTO) throws Exception {
-        Cart cart = cartRepository.findById(cartDTO.parseToObject().getId()).orElse(null);
+        Cart cart = cartRepository.findById(HashUtils.decodeBase64ToInt(cartDTO.getHashId())).orElse(null);
         if (cart == null) {
             throw new EmptyException("Carrinho");
         }
@@ -121,10 +123,11 @@ public class OrderService {
 
     public OrderDTO show(String hashId) throws RegraDeNegocioException, EmptyException {
         Order order = orderRepository.findById(HashUtils.decodeBase64ToInt(hashId)).orElse(null);
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (order == null) {
             throw new EmptyException(model);
         }
-        if (order.getUser() != SecurityContextHolder.getContext().getAuthentication().getPrincipal()) {
+        if (!Objects.equals(order.getUser().getId(), authUser.getId())) {
             throw new RegraDeNegocioException("Pedido não pertence ao usuário logado");
         }
         return order.parseToDTO();

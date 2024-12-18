@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +63,7 @@ public class CartService {
             User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Cart cart = new Cart();
             cart.setUser(authUser);
+            cart.setItems(new ArrayList<>());
             cart.setTotalValue(0.00);
             cartRepository.save(cart);
 
@@ -74,11 +74,14 @@ public class CartService {
 
 
     private void saveCartItem(Product product, int quantity, Cart cart) throws Exception {
-        Optional<CartItem> existingItem = cart.getItems().stream()
-                .filter(item -> item.getProduct().getId().equals(product.getId()))
-                .findFirst();
+        Optional<CartItem> existingItem = null;
+        if (!cart.getItems().isEmpty()) {
+            existingItem = cart.getItems().stream()
+                    .filter(item -> item.getProduct().getId().equals(product.getId()))
+                    .findFirst();
+        }
 
-        if (existingItem.isPresent()) {
+        if (!cart.getItems().isEmpty() && existingItem.isPresent()) {
             CartItem item = existingItem.get();
             item.setQuantity(item.getQuantity() + quantity);
             item.setSubtotal(item.getQuantity() * item.getProduct().getUnitPrice());
@@ -92,7 +95,7 @@ public class CartService {
             newItem.setCart(cart);
             newItem.setProduct(product);
             newItem.setQuantity(quantity);
-            newItem.setSubtotal(product.getUnitPrice());
+            newItem.setSubtotal(quantity * product.getUnitPrice());
 
             cartItemRepository.save(newItem);
             cart.getItems().add(newItem);
@@ -186,6 +189,7 @@ public class CartService {
                 productsItemsCartDTO.setProductDTO(item.getProduct().parseToDTO());
                 productsItemsCartDTO.setQuantity(item.getQuantity());
                 productsItemsCartDTO.setSubtotal(item.getSubtotal());
+//                productsItemsCartDTO.setCartDTO(item.getCart().parseToDTO());
                 productsItemsCartDTOList.add(productsItemsCartDTO);
             }
 

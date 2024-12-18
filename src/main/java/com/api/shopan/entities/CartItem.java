@@ -1,5 +1,6 @@
 package com.api.shopan.entities;
 
+import com.api.shopan.dtos.CartItemDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +31,14 @@ public class CartItem {
 
     @Column(name = "subtotal", nullable = false)
     private Double subtotal = 0.0;
+
+//    public CartItemDTO parseToDTO() {
+//        CartItemDTO cartItemDTO = new CartItemDTO();
+//        cartItemDTO.setCart(cart.parseToDTO());
+//        cartItemDTO.setProduct(product.parseToDTO());
+//        cartItemDTO.setQuantity(quantity);
+//        cartItemDTO.setSubtotal(subtotal);
+//        return cartItemDTO;
+//    }
 
 }

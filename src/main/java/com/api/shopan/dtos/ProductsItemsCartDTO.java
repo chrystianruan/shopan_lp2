@@ -17,4 +17,5 @@ public class ProductsItemsCartDTO {
     private ProductDTO productDTO;
     private int quantity;
     private double subtotal;
+    private CartDTO cartDTO;
 }

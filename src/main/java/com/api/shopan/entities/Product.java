@@ -37,7 +37,7 @@ public class Product {
 
     public ProductDTO parseToDTO() {
         ProductDTO productDTO = new ProductDTO();
-        productDTO.setHashId(HashUtils.encodeBase64(this.id.toString()));
+        productDTO.setHashId(HashUtils.encodeBase64(id.toString()));
         productDTO.setName(this.name);
         productDTO.setDescription(this.description);
         productDTO.setUnitPrice(this.unitPrice);
